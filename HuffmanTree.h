@@ -81,7 +81,8 @@ std::string HuffmanTree::Decode(std::string code) {
     for (int i = 0; i < code.length(); i++) {
         if (code[i] == '0') {   //为0进左子树
             p = p->left;
-        } else if (code[i] == '1') {    //为1进右子树
+        }
+        else if (code[i] == '1') {    //为1进右子树
             p = p->right;
         }
         if (p->left == NULL && p->right == NULL) {  //若节点是叶子节点则获取编码字符
@@ -117,7 +118,8 @@ void HuffmanTree::markCode(HuffmanTree::Node *p, char code) {
     if (p->left != NULL && p->right != NULL) {  //节点不是叶子节点，递归进入左右子树
         markCode(p->left, '0');
         markCode(p->right, '1');
-    } else {    //若是叶子节点
+    }
+    else {    //若是叶子节点
         mapper[p->data] = "";
         Node *q = p;
         while (q != root) {
@@ -129,15 +131,18 @@ void HuffmanTree::markCode(HuffmanTree::Node *p, char code) {
 
 //建立Huffman树
 void HuffmanTree::buildTree(std::string message) {
-    int weights[maxSize] = {0};
+    int *weights = new int[maxSize];
     Node *parent = NULL;
     DataNode left, right, temp;
+    for (int i = 0; i < maxSize; i++) {
+        weights[i] = 0;
+    }
     for (int i = 0; i < message.length(); i++) {    //统计字符出现频率
         weights[message[i]]++;
     }
     for (int i = 0; i < maxSize; i++) {
         if (weights[i] != 0) {
-            temp.ptr = new Node(weights[i], (char) i);  //构造初始节点
+            temp.ptr = new Node(weights[i], (char)i);  //构造初始节点
             heap.Push(temp);
             size++;     //统计编码字符数量
         }
