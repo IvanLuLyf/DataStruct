@@ -157,7 +157,7 @@ void ThreadTree<T>::InsertLeft(ThreadNode<T> *s, ThreadNode<T> *l) {
     s->lTag = false;
     if (!l->lTag) {
         ThreadNode<T> *temp;
-        temp = Next(l->left);
+        temp = Last(l->left);
         temp->right = l;
     }
 }
